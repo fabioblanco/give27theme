@@ -115,7 +115,7 @@ $status    = edd_get_payment_status( $payment, true );
 			<?php if ( edd_item_quanities_enabled() ) { ?>
 				<th><?php _e( 'Quantity', 'edd' ); ?></th>
 			<?php } ?>
-			<th><?php _e( 'Price', 'edd' ); ?></th>
+			<th><?php _e( 'Donation amount', 'edd' ); ?></th>
 		</thead>
 
 		<tbody>
@@ -167,7 +167,7 @@ $status    = edd_get_payment_status( $payment, true );
 					$colspan = ' colspan="2"';
 				}
 				?>
-				<td<?php echo $colspan; ?>><strong><?php _e( 'Total Price', 'edd' ); ?>:</strong></td>
+				<td<?php echo $colspan; ?>><strong><?php _e( 'Total Donation', 'edd' ); ?>:</strong></td>
 
 				<td>
 					<?php
