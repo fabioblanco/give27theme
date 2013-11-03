@@ -1,3 +1,86 @@
+Fundify.Campaign = (function($) {
+	function campaignGrid() {
+		if ( ! $().masonry )
+			return;
+
+		var container = $( '#projects section' );
+
+		if ( container.masonry() )
+			container.masonry( 'reload' );
+		
+		container.imagesLoaded( function() {
+			container.masonry({
+				itemSelector : '.hentry'
+			});
+		});
+	}
+
+	function campaignTabs() {
+		var tabs     = $( '.campaign-tabs' ),
+		    overview = $( '.campaign-view-descrption' ),
+		    tablinks = $( '.sort-tabs.campaign a' );
+		
+		tabs.children( 'div' ).hide();
+
+		tabs.find( ':first-child' ).show();
+
+		tablinks.click(function(e) {
+			if ( $(this).hasClass( 'tabber' ) ) {
+				var link = $(this).attr( 'href' );
+					
+				tabs.children( 'div' ).hide();
+				overview.show();
+				tabs.find( link ).show();
+				
+				$( 'body' ).animate({
+					scrollTop: $(link).offset().top - 200
+				});
+			}
+		});
+	}
+
+	function campaignPledgeLevels() {
+		$( '.single-reward-levels li' ).click( function(e) {
+			e.preventDefault();
+
+			if ( $( this ).hasClass( 'inactive' ) )
+				return false;
+
+			var price = $( this ).data( 'price' );
+
+			Fundify.App.fancyBox( $(this), {
+				items : {
+					src  : '#contribute-modal-wrap'
+				},
+				callbacks: {
+					beforeOpen : function() {
+						$( '#contribute-modal-wrap .edd_price_options' )
+							.find( 'li[data-price="' + price + '"]' )
+							.trigger( 'click' );
+					}
+				}
+			});
+		} );
+	}
+
+	function campaignWidget() {
+		$( 'body.campaign-widget a' ).attr( 'target', '_blank' );
+	}
+
+	return {
+		init : function() {
+			campaignGrid();
+			campaignTabs();
+			campaignPledgeLevels();
+			campaignWidget();
+		},
+
+		resizeGrid : function() {
+			campaignGrid();
+		}
+	}
+} )(jQuery);
+
 Crowdfunding.Campaign = ( function($) {
   var customPriceField,
       priceOptions,
@@ -126,6 +209,7 @@ Crowdfunding.Campaign = ( function($) {
 
 
 jQuery(document).ready(function($) {
+	Fundify.Campaign.init();
   if ( atcfSettings.pages.is_campaign )
     Crowdfunding.Campaign.init();
 });

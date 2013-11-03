@@ -28,6 +28,10 @@
   padding: 10px 0;
 }
 
+.campaign.sort-tabs {
+  padding-top: 10px;
+}
+
 .entry-share {
 	font-family: 'Lato';
 	font-weight: normal;

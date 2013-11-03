@@ -17,11 +17,13 @@ function new_fundify_widgets_init() {
 /**
  * Fix the logic that selects the giving amount since our button is not in the modal window. 
  * See crowdfunding.js:57-59 in the appthemer-crowdfunding plugin.
+ * 
+ * This also has a fix for the tabs on the campaign page
  */
-function enqueue_button_fixer_script() {
-  wp_enqueue_script('fundify-child-button-fixer-script', get_stylesheet_directory_uri() . '/js/buttonfixerscript.js', array('atcf-scripts', 'jquery') );
+function js_fixer_script() {
+  wp_enqueue_script('fundify-child-fixer-script', get_stylesheet_directory_uri() . '/js/fixerscript.js', array('fundify-scripts', 'atcf-scripts', 'jquery') );
 }
-add_action('wp_enqueue_scripts', 'enqueue_button_fixer_script');
+add_action('wp_enqueue_scripts', 'js_fixer_script');
 
 /**
  * Download labels. Change from "Campaigns" "Families"
